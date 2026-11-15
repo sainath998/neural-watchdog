@@ -1,0 +1,431 @@
+{
+ "watchdog": "0x12801A7EEb708DFA3990eF43F5254E19Df2E4715",
+ "vault": "0x4FeA868F0eF13595a591572694EF322638D95aBa",
+ "operator": "0xd5a6AfE8562e32DAA14B5D9031e9de594A83E173",
+ "txs": {
+  "deployWatchdog": "0x47c702583117986ec4489ba61f6394e9d184ac15d8b7809403fac43f9c1cced5",
+  "deployVault": "0x186cdb5a157d4308472ed13e68fd87f2799eb459775dee09d16fdc69bf774b75",
+  "link": "0x11ccffa067ae984aa8d8f7547b0853901a60009e46bac5895d39cb92e260d683",
+  "fund": "0x2dc50ebeeeb2e3c858afb43a4e3f4814ff5808dc1434ee415dc858d8ab74f0b2"
+ },
+ "vaultAbi": [
+  {
+   "type": "function",
+   "name": "_CALLBACK_SENDER",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "address",
+     "internalType": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "_SERVICE_PROVIDER",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "address",
+     "internalType": "contract IPayable"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "frozen",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "bool",
+     "internalType": "bool"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "operator",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "address",
+     "internalType": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "owner",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "address",
+     "internalType": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "treasury",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "uint256",
+     "internalType": "uint256"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "event",
+   "name": "FrozenByWatchdog",
+   "inputs": [
+    {
+     "name": "logit_",
+     "type": "int256",
+     "indexed": false,
+     "internalType": "int256"
+    },
+    {
+     "name": "triggerTx_",
+     "type": "uint256",
+     "indexed": false,
+     "internalType": "uint256"
+    },
+    {
+     "name": "balanceSaved_",
+     "type": "uint256",
+     "indexed": false,
+     "internalType": "uint256"
+    }
+   ],
+   "anonymous": false
+  },
+  {
+   "type": "event",
+   "name": "Funded",
+   "inputs": [
+    {
+     "name": "from_",
+     "type": "address",
+     "indexed": true,
+     "internalType": "address"
+    },
+    {
+     "name": "amount_",
+     "type": "uint256",
+     "indexed": false,
+     "internalType": "uint256"
+    },
+    {
+     "name": "balance_",
+     "type": "uint256",
+     "indexed": false,
+     "internalType": "uint256"
+    }
+   ],
+   "anonymous": false
+  },
+  {
+   "type": "event",
+   "name": "Unfrozen",
+   "inputs": [
+    {
+     "name": "newOperator_",
+     "type": "address",
+     "indexed": true,
+     "internalType": "address"
+    }
+   ],
+   "anonymous": false
+  },
+  {
+   "type": "event",
+   "name": "Withdrawal",
+   "inputs": [
+    {
+     "name": "to_",
+     "type": "address",
+     "indexed": true,
+     "internalType": "address"
+    },
+    {
+     "name": "amount_",
+     "type": "uint256",
+     "indexed": false,
+     "internalType": "uint256"
+    },
+    {
+     "name": "balanceAfter_",
+     "type": "uint256",
+     "indexed": false,
+     "internalType": "uint256"
+    }
+   ],
+   "anonymous": false
+  }
+ ],
+ "watchdogAbi": [
+  {
+   "type": "function",
+   "name": "_SERVICE_PROVIDER",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "address",
+     "internalType": "contract IPayable"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "avgAmount",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "int256",
+     "internalType": "int256"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "features",
+   "inputs": [
+    {
+     "name": "to_",
+     "type": "address",
+     "internalType": "address"
+    },
+    {
+     "name": "amount_",
+     "type": "uint256",
+     "internalType": "uint256"
+    },
+    {
+     "name": "balanceAfter_",
+     "type": "uint256",
+     "internalType": "uint256"
+    },
+    {
+     "name": "now_",
+     "type": "uint256",
+     "internalType": "uint256"
+    }
+   ],
+   "outputs": [
+    {
+     "name": "x",
+     "type": "int256[5]",
+     "internalType": "int256[5]"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "freezeRequested",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "bool",
+     "internalType": "bool"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "lastTo",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "address",
+     "internalType": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "originChainId",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "uint256",
+     "internalType": "uint256"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "owner",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "address",
+     "internalType": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "scored",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "uint256",
+     "internalType": "uint256"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "function",
+   "name": "vault",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "",
+     "type": "address",
+     "internalType": "address"
+    }
+   ],
+   "stateMutability": "view"
+  },
+  {
+   "type": "event",
+   "name": "Callback",
+   "inputs": [
+    {
+     "name": "chainId_",
+     "type": "uint256",
+     "indexed": true,
+     "internalType": "uint256"
+    },
+    {
+     "name": "contract_",
+     "type": "address",
+     "indexed": true,
+     "internalType": "address"
+    },
+    {
+     "name": "gasLimit_",
+     "type": "uint64",
+     "indexed": true,
+     "internalType": "uint64"
+    },
+    {
+     "name": "payload_",
+     "type": "bytes",
+     "indexed": false,
+     "internalType": "bytes"
+    }
+   ],
+   "anonymous": false
+  },
+  {
+   "type": "event",
+   "name": "FreezeRequested",
+   "inputs": [
+    {
+     "name": "txHash_",
+     "type": "uint256",
+     "indexed": true,
+     "internalType": "uint256"
+    },
+    {
+     "name": "logit_",
+     "type": "int256",
+     "indexed": false,
+     "internalType": "int256"
+    }
+   ],
+   "anonymous": false
+  },
+  {
+   "type": "event",
+   "name": "Linked",
+   "inputs": [
+    {
+     "name": "chainId_",
+     "type": "uint256",
+     "indexed": false,
+     "internalType": "uint256"
+    },
+    {
+     "name": "vault_",
+     "type": "address",
+     "indexed": false,
+     "internalType": "address"
+    }
+   ],
+   "anonymous": false
+  },
+  {
+   "type": "event",
+   "name": "Scored",
+   "inputs": [
+    {
+     "name": "txHash_",
+     "type": "uint256",
+     "indexed": true,
+     "internalType": "uint256"
+    },
+    {
+     "name": "to_",
+     "type": "address",
+     "indexed": true,
+     "internalType": "address"
+    },
+    {
+     "name": "amount_",
+     "type": "uint256",
+     "indexed": false,
+     "internalType": "uint256"
+    },
+    {
+     "name": "features_",
+     "type": "int256[5]",
+     "indexed": false,
+     "internalType": "int256[5]"
+    },
+    {
+     "name": "logit_",
+     "type": "int256",
+     "indexed": false,
+     "internalType": "int256"
+    },
+    {
+     "name": "freeze_",
+     "type": "bool",
+     "indexed": false,
+     "internalType": "bool"
+    }
+   ],
+   "anonymous": false
+  }
+ ]
+}

@@ -1,0 +1,133 @@
+{
+  "steps": [
+    {
+      "label": "payroll",
+      "to": "0x000000000000000000000000000000000000a11c",
+      "eth": "0.004",
+      "sepoliaTx": "0x41a05e2dbd497f3a3e4b0c8fd6883b99f80db18593d2e006eb75058f1d32fc4a",
+      "block": 12137135,
+      "score": {
+        "lasnaTx": "0x542133fa820307acfbaefb5152a3d78b854430fc24316f5a80fe2446dcc649c2",
+        "features": [
+          0.02,
+          0,
+          0.05,
+          0,
+          0.02
+        ],
+        "logit": -31.3894,
+        "p": 2.3321516628864888e-14,
+        "freeze": false
+      }
+    },
+    {
+      "label": "payroll",
+      "to": "0x000000000000000000000000000000000000b0b0",
+      "eth": "0.004",
+      "sepoliaTx": "0x856b66f0009b8c37e0f905596031b74c412515dffab479ac6331f73bd8609987",
+      "block": 12137138,
+      "score": {
+        "lasnaTx": "0xa74805d4f078d002edeb7d7f63a091599ff6fd8291fb452acddcf7694aa5ea66",
+        "features": [
+          0.0204,
+          0.1,
+          0.05,
+          0,
+          0.0404
+        ],
+        "logit": -28.2448,
+        "p": 5.413014837633666e-13,
+        "freeze": false
+      }
+    },
+    {
+      "label": "payroll",
+      "to": "0x000000000000000000000000000000000000C4a5",
+      "eth": "0.004",
+      "sepoliaTx": "0x212e0aedb6e2ef2e716946153a7d2240e17f91d5a723b3cc7af8004885d2fe8f",
+      "block": 12137142,
+      "score": {
+        "lasnaTx": "0xc6227ca1d2a25baa7703942f0cd219199f384f1325598d3e3aa1b7d9950b6dcd",
+        "features": [
+          0.0208,
+          0.1,
+          0.05,
+          0,
+          0.0412
+        ],
+        "logit": -28.2072,
+        "p": 5.620418958607791e-13,
+        "freeze": false
+      }
+    },
+    {
+      "label": "drain",
+      "to": "0x000000000000000000000000000000000000bad1",
+      "eth": "0.03",
+      "sepoliaTx": "0x345862ea20e5419386d8ca0d506c03950093fed23059809e1242fe15054da45d",
+      "block": 12137146,
+      "score": {
+        "lasnaTx": "0x9c52b4e8d1bfb3e3de8285e1be2d58d9d92b416d47ce08c90ebce7916d9ec76c",
+        "features": [
+          0.1595,
+          0.1,
+          0.375,
+          0,
+          0.1803
+        ],
+        "logit": -20.6303,
+        "p": 1.0974242420600945e-9,
+        "freeze": false
+      }
+    },
+    {
+      "label": "drain",
+      "to": "0x000000000000000000000000000000000000bad1",
+      "eth": "0.03",
+      "sepoliaTx": "0x7c699d2a2f0c649751ef67a78357b332a3ba836021b1eb69454d798a3382f0d2",
+      "block": 12137147,
+      "score": {
+        "lasnaTx": "0xc1cd94fd1102800acfe251f3e8f1ba34897343f45471f5df4a3d8064a02b3f87",
+        "features": [
+          0.1898,
+          0.2,
+          0.2068,
+          1,
+          0.3701
+        ],
+        "logit": -5.0591,
+        "p": 0.006311189002334773,
+        "freeze": false
+      }
+    },
+    {
+      "label": "drain",
+      "to": "0x000000000000000000000000000000000000bad1",
+      "eth": "0.03",
+      "sepoliaTx": "0x8277813e6c018d4e48ebc36ab1ce1c3e6efccbd5ad2c18390b85054a281b0a89",
+      "block": 12137148,
+      "score": {
+        "lasnaTx": "0xd7d6b5442c2997c83ddae42642fe11537d854991395bbc8e3d8be21a0a1ca549",
+        "features": [
+          0.2343,
+          0.2,
+          0.1486,
+          1,
+          0.5836
+        ],
+        "logit": 9.3324,
+        "p": 0.9999114982742059,
+        "freeze": true
+      }
+    },
+    {
+      "label": "drain",
+      "to": "0x000000000000000000000000000000000000bad1",
+      "eth": "0.03",
+      "reverted": "transaction execution reverted"
+    }
+  ],
+  "freezeTx": "0x703d5e3d724a38647faed7f5e3484aebce82f6019e9a4bac3401808eda7dba41",
+  "saved": "0.098",
+  "stolen": "0.09"
+}

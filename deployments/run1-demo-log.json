@@ -1,0 +1,105 @@
+{
+  "steps": [
+    {
+      "label": "payroll",
+      "to": "0x000000000000000000000000000000000000A11c",
+      "eth": "0.004",
+      "reverted": "bad address checksum"
+    },
+    {
+      "label": "payroll",
+      "to": "0x000000000000000000000000000000000000B0b0",
+      "eth": "0.004",
+      "reverted": "bad address checksum"
+    },
+    {
+      "label": "payroll",
+      "to": "0x000000000000000000000000000000000000c4a5",
+      "eth": "0.004",
+      "sepoliaTx": "0x5c41671841e1435fb0cdfe2cf06122619f9a03cdc5ed3d6477c17295948dbe81",
+      "block": 12137118,
+      "score": {
+        "lasnaTx": "0x98cbd5f91ec304493f7137553ade44476184b36f2d1a11a6b90ebd80bf8e22ba",
+        "features": [
+          0.02,
+          0,
+          0.05,
+          0,
+          0.02
+        ],
+        "logit": -31.3894,
+        "p": 2.3321516628864888e-14,
+        "freeze": false
+      }
+    },
+    {
+      "label": "drain",
+      "to": "0x000000000000000000000000000000000000BAD1",
+      "eth": "0.03",
+      "sepoliaTx": "0xd8015e0d3d482257ac71c3462fb8d5037ae29419092f6a07e873eaa13064187e",
+      "block": 12137121,
+      "score": {
+        "lasnaTx": "0x9f81356a49f02ce9c1d74233d2369dadf7ca1e9b2700a3bfb38724bbe31c0629",
+        "features": [
+          0.153,
+          0.1,
+          0.375,
+          0,
+          0.173
+        ],
+        "logit": -20.9272,
+        "p": 8.155160598420102e-10,
+        "freeze": false
+      }
+    },
+    {
+      "label": "drain",
+      "to": "0x000000000000000000000000000000000000BAD1",
+      "eth": "0.03",
+      "sepoliaTx": "0x3f460bfc8077e5b71b8a151392450ea9a2a1f6f60b20040ad59b8545db9b0761",
+      "block": 12137122,
+      "score": {
+        "lasnaTx": "0x3042edc6a6955f02e6a2c7dec124f2e6f3c43e972ce2c673ff5d1b210ef463d3",
+        "features": [
+          0.1807,
+          0.2,
+          0.2068,
+          1,
+          0.3537
+        ],
+        "logit": -6.3536,
+        "p": 0.001737446178706922,
+        "freeze": false
+      }
+    },
+    {
+      "label": "drain",
+      "to": "0x000000000000000000000000000000000000BAD1",
+      "eth": "0.03",
+      "sepoliaTx": "0x84a13a7200fe82830adb8650d6fca784d49c359a36e306a7396eb0abf256cc09",
+      "block": 12137123,
+      "score": {
+        "lasnaTx": "0xc7d7d4028c54f0f9a050234d3edc5cac685afda7fb6659a5ca9e3c5abece25fa",
+        "features": [
+          0.2205,
+          0.3,
+          0.1486,
+          1,
+          0.5742
+        ],
+        "logit": 11.2959,
+        "p": 0.9999875763969599,
+        "freeze": true
+      }
+    },
+    {
+      "label": "drain",
+      "to": "0x000000000000000000000000000000000000BAD1",
+      "eth": "0.03",
+      "reverted": "transaction execution reverted"
+    }
+  ],
+  "freezeTx": "0x926561f08c5ed1878b7787a1f989df18d33bd5db69b328edc062e09ae383acb4",
+  "saved": "0.106",
+  "stolen": "0.09"
+}

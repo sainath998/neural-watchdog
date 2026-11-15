@@ -1,0 +1,11 @@
+{
+  "watchdog": "0x12801A7EEb708DFA3990eF43F5254E19Df2E4715",
+  "vault": "0x4FeA868F0eF13595a591572694EF322638D95aBa",
+  "operator": "0xd5a6AfE8562e32DAA14B5D9031e9de594A83E173",
+  "txs": {
+    "deployWatchdog": "0x47c702583117986ec4489ba61f6394e9d184ac15d8b7809403fac43f9c1cced5",
+    "deployVault": "0x186cdb5a157d4308472ed13e68fd87f2799eb459775dee09d16fdc69bf774b75",
+    "link": "0x11ccffa067ae984aa8d8f7547b0853901a60009e46bac5895d39cb92e260d683",
+    "fund": "0x2dc50ebeeeb2e3c858afb43a4e3f4814ff5808dc1434ee415dc858d8ab74f0b2"
+  }
+}

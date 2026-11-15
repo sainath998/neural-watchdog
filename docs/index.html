@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27%238b7bff%27/%3E%3C/svg%3E" />
+  <title>Neural Watchdog: an on-chain neural network that freezes a drain</title>
+  <style>
+    :root { --bg:#0c0d14; --panel:#151725; --line:#272a3d; --ink:#eceefb; --muted:#9a9fbf; --violet:#8b7bff; --green:#4fd39a; --red:#ff6b7f; --amber:#ffc35c; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 Inter, system-ui, -apple-system, sans-serif; }
+    main { max-width:1180px; margin:0 auto; padding:26px 20px 50px; }
+    h1 { margin:0 0 4px; font-size:32px; } h1 span { color:var(--violet); }
+    .sub { color:var(--muted); max-width:820px; margin:0 0 18px; }
+    .grid { display:grid; grid-template-columns:.85fr 1.15fr; gap:16px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:18px; }
+    .card h2 { margin:0 0 12px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+    .big { font-size:30px; font-weight:800; }
+    .status { display:inline-flex; gap:8px; align-items:center; padding:6px 12px; border-radius:99px; font-weight:700; }
+    .status.live { background:rgba(79,211,154,.12); color:var(--green); }
+    .status.frozen { background:rgba(255,107,127,.15); color:var(--red); }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
+    .stats b { display:block; font-size:22px; } .stats span { color:var(--muted); font-size:12px; }
+    .net { margin-top:16px; color:var(--muted); font-size:13px; }
+    .net code { color:var(--ink); }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th { text-align:left; color:var(--muted); font-weight:600; padding:6px 6px; border-bottom:1px solid var(--line); }
+    td { padding:8px 6px; border-bottom:1px solid var(--line); vertical-align:middle; }
+    .bar { height:10px; border-radius:6px; background:#23263a; position:relative; min-width:120px; }
+    .bar i { position:absolute; left:0; top:0; bottom:0; border-radius:6px; }
+    .thr { position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--amber); left:90%; }
+    .pill { font-size:11px; padding:2px 8px; border-radius:99px; font-weight:700; }
+    .ok { background:rgba(79,211,154,.12); color:var(--green); } .bad { background:rgba(255,107,127,.15); color:var(--red); }
+    .feat { color:var(--muted); font:11px ui-monospace, Menlo, monospace; }
+    a { color:var(--violet); }
+    .flow { color:var(--muted); font-size:13px; margin:0 0 16px; } .flow b { color:var(--ink); }
+    @media (max-width:900px) { .grid { grid-template-columns:1fr; } }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.4/ethers.umd.min.js"></script>
+</head>
+<body>
+<main>
+  <h1>Neural <span>Watchdog</span></h1>
+  <p class="sub">A treasury vault on Ethereum Sepolia, guarded by a <b>neural network that runs inside a reactive contract</b> on Reactive Omni. Every withdrawal is scored on-chain, and when the network is more than 90% sure it's watching a drain, it freezes the vault through a callback. There's no oracle and no model server: the AI is part of the running system.</p>
+  <p class="flow"><b>Withdrawal on Sepolia</b> → event → <b>NeuralWatchdog.react()</b> builds 5 features and runs a 5-8-1 network in integer math → p(attack) &gt; 0.9 → callback → <b>vault frozen</b></p>
+  <div class="grid">
+    <div class="card">
+      <h2>The vault · live</h2>
+      <span id="status" class="status live">● loading</span>
+      <div class="stats">
+        <div><b id="treasury">–</b><span>treasury (ETH)</span></div>
+        <div><b id="scored">–</b><span>withdrawals scored on-chain</span></div>
+        <div><b id="flags">–</b><span>flagged as a drain</span></div>
+      </div>
+      <p class="net">Features per withdrawal: <code>share</code> of the treasury, <code>burst</code> (withdrawals in the last 60 s), <code>spike</code> versus the running average, <code>repeat</code> recipient, and <code>windowShare</code> (treasury share moved in the last 60 s).<br>Model: 5 → 8 (ReLU) → 1, trained offline, then run on-chain in integer arithmetic that matches the trained model bit for bit (tested).</p>
+      <p class="net" id="contracts"></p>
+    </div>
+    <div class="card">
+      <h2>Every withdrawal, as the network saw it</h2>
+      <table><thead><tr><th>When</th><th>Amount</th><th>p(attack)</th><th></th><th>Features</th></tr></thead><tbody id="rows"><tr><td colspan="5">Loading…</td></tr></tbody></table>
+    </div>
+  </div>
+</main>
+<script>
+const SEP = 'https://ethereum-sepolia-rpc.publicnode.com', LAS = 'https://lasna-rpc.rnk.dev/';
+const ES = 'https://sepolia.etherscan.io', RS = 'https://lasna.reactscan.net';
+const short = (a) => a.slice(0, 6) + '…' + a.slice(-4);
+async function main() {
+  const dep = await (await fetch(new URLSearchParams(location.search).get('run') === 'video' ? 'video-run.json' : 'deployment.json')).json();
+  const sep = new ethers.JsonRpcProvider(SEP), las = new ethers.JsonRpcProvider(LAS);
+  const vault = new ethers.Contract(dep.vault, dep.vaultAbi, sep);
+  const dog = new ethers.Contract(dep.watchdog, dep.watchdogAbi, las);
+  document.querySelector('#contracts').innerHTML = `Vault <a target=_blank href="${ES}/address/${dep.vault}">${short(dep.vault)}</a> (Sepolia) · Watchdog <a target=_blank href="${RS}/address/${dep.watchdog}">${short(dep.watchdog)}</a> (Reactive Lasna)`;
+  const from = (await las.getTransactionReceipt(dep.txs.deployWatchdog)).blockNumber;
+  const times = {};
+  async function refresh() {
+    const [t, frozen] = await Promise.all([vault.treasury(), vault.frozen()]);
+    document.querySelector('#treasury').textContent = Number(ethers.formatEther(t)).toFixed(4);
+    const st = document.querySelector('#status');
+    st.className = 'status ' + (frozen ? 'frozen' : 'live');
+    st.textContent = frozen ? '■ FROZEN by the watchdog' : '● open';
+    const logs = await dog.queryFilter('Scored', from);
+    document.querySelector('#scored').textContent = logs.length;
+    document.querySelector('#flags').textContent = logs.filter((l) => l.args[5]).length;
+    const rows = [];
+    for (const l of logs.slice().reverse()) {
+      if (!times[l.blockNumber]) times[l.blockNumber] = (await las.getBlock(l.blockNumber)).timestamp;
+      const a = l.args, z = Number(a[4]) / 10000, p = 1 / (1 + Math.exp(-z));
+      const color = p > 0.9 ? 'var(--red)' : p > 0.5 ? 'var(--amber)' : 'var(--green)';
+      const f = a[3].map((v) => (Number(v) / 10000).toFixed(2));
+      const sepTx = '0x' + BigInt(a[0]).toString(16).padStart(64, '0');
+      rows.push(`<tr><td>${new Date(times[l.blockNumber] * 1000).toLocaleTimeString()}<br><a target=_blank href="${ES}/tx/${sepTx}">withdrawal ↗</a> · <a target=_blank href="${RS}/tx/${l.transactionHash}">score ↗</a></td>
+        <td>${Number(ethers.formatEther(a[2])).toFixed(3)} ETH<br><span class="feat">to ${short(a[1])}</span></td>
+        <td><b>${p.toFixed(3)}</b><div class="bar"><i style="width:${(p * 100).toFixed(1)}%;background:${color}"></i><span class="thr"></span></div></td>
+        <td>${a[5] ? '<span class="pill bad">FREEZE</span>' : '<span class="pill ok">ok</span>'}</td>
+        <td class="feat">share ${f[0]} · burst ${f[1]}<br>spike ${f[2]} · repeat ${f[3]} · window ${f[4]}</td></tr>`);
+    }
+    document.querySelector('#rows').innerHTML = rows.join('') || '<tr><td colspan=5>No withdrawals yet</td></tr>';
+  }
+  await refresh();
+  setInterval(() => refresh().catch(console.error), 6000);
+}
+main().catch((e) => (document.querySelector('#rows').innerHTML = `<tr><td colspan=5>Could not load: ${e.message}</td></tr>`));
+</script>
+</body>
+</html>
